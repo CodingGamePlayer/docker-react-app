@@ -7,11 +7,19 @@ services:
 
 before_install:
    - echo "start Creating an image with dockerfile"
-   - docker build -t react-app -f dockerfile.dev .
+   - docker build -t react-app -f Dockerfile.dev .
 
 script:
    - docker run -e CI=true react-app npm run test -- --coverage
 
-after_success:
-   - echo "test finished successfully" # after_install이 아닌 after_success로 변경
-
+deploy:
+   provider: elasticbeanstalk
+   region: "ap-northeast-2"
+   app: "docker-react-app"
+   env: "DockerReactAppEnv"
+   bucket_name: "elasticbeanstalk-ap-northeast-2-919855390587"
+   bucket_path: "docker-react-app"
+   on:
+      branch: master
+   access_key_id: $AWS_ACCESS_KEY
+   secret_access_key: $AWS_SECRET_ACCESS_KEY
