@@ -1,19 +1,16 @@
+sudo: required
+
 language: generic
 
 services:
    - docker
 
-os:
-   - linux
-
-dist: Bionic
-
 before_install:
    - echo "start Creating an image with dockerfile"
-   - docker build -t kimjongsik/docker-react-app -f dockerfile.dev .
+   - docker build -t react-app -f dockerfile.dev .
 
 script:
-   - docker run -e CI=true kimjongsik/docker-react-app npm run test -- --coverage
+   - docker run -e CI=true react-app npm run test -- --coverage
 
 after_success:
    - echo "test finished successfully" # after_install이 아닌 after_success로 변경
