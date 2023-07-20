@@ -7,7 +7,7 @@ sevices:
 
 before_install:
    - echo "start Creating an image with dockerfile"
-   - docker build -t react-app -f dockerfile.dev ./
+   - docker build -t react-app -f dockerfile.dev .
 
 script:
    - docker run -e CI=true react-app npm run test -- --coverage
