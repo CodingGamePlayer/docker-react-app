@@ -2,7 +2,7 @@ sudo: required
 
 language: generic
 
-sevices:
+services:
    - docker
 
 before_install:
@@ -12,5 +12,6 @@ before_install:
 script:
    - docker run -e CI=true react-app npm run test -- --coverage
 
-after_install:
-   - echo "test finished successfully"
+after_success:
+   - echo "test finished successfully" # after_install이 아닌 after_success로 변경
+
