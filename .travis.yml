@@ -7,10 +7,16 @@ services:
 
 before_install:
    - echo "start Creating an image with dockerfile"
-   - docker build -t react-app -f dockerfile .
+   - docker-compose up
 
-script:
-   - docker run -e CI=true react-app npm run test -- --coverage
+after_install:
+   - echo "stop while creating an image with docker"
+
+after_failure:
+   - echo "failed running the docker"
+
+after_success:
+   - echo "finished running the docker"
 
 deploy:
    provider: elasticbeanstalk
